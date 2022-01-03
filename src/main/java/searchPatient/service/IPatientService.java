@@ -9,8 +9,6 @@ public interface IPatientService {
 
     List<Patient> findAll();
 
-    public Patient getPatientInformation(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname);
-
     Patient getPatientById(@RequestParam Integer id);
 
     Patient addPatientInformation(Patient patient);

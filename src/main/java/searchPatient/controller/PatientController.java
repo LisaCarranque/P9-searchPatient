@@ -1,6 +1,6 @@
 package searchPatient.controller;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import searchPatient.service.IPatientService;
 
 import javax.validation.Valid;
 
-@Log4j2
+@Slf4j
 @Controller
 public class PatientController {
 
@@ -26,6 +26,7 @@ public class PatientController {
      */
     @RequestMapping("/index")
     public String index(Model model) {
+        log.info("Displaying welcome view");
         return "index";
     }
 
@@ -37,6 +38,7 @@ public class PatientController {
      */
     @RequestMapping("/patient/list")
     public String home(Model model) {
+        log.info("PatientController : finding all patients");
         model.addAttribute("patients", patientService.findAll());
         model.addAttribute("patient", Patient.builder().build());
         return "list";
@@ -50,7 +52,7 @@ public class PatientController {
      */
     @RequestMapping("/patient/add")
     public String addPatientInformation(Model model, @Valid Patient patient) {
-        log.info("adding patient data");
+        log.info("Patient controller : adding patient data");
         System.out.println(patient.getAddress());
         System.out.println(patient.getBirthdate());
         System.out.println(patient.getGenre());
@@ -60,7 +62,7 @@ public class PatientController {
         System.out.println(patient.getPhone());
         System.out.println(patient.getUuid());
         patientService.addPatientInformation(patient);
-        log.info("patient data added");
+        log.info("Patient controller : patient data added");
         model.addAttribute("patients", patientService.findAll());
         model.addAttribute("patient", Patient.builder().build());
         return "list";
@@ -74,6 +76,7 @@ public class PatientController {
      */
     @GetMapping("/patient/update/{id}")
     public String updatePatientInformation(Model model, @PathVariable Integer id) {
+        log.info("PatientController : getting patient information to update");
         model.addAttribute("patient", patientService.getPatientById(id));
         return "edit";
     }
@@ -86,7 +89,9 @@ public class PatientController {
      */
     @PostMapping("/patient/update")
     public String validateUpdate(Model model, @ModelAttribute @Valid Patient patient) {
+        log.info("PatientController :  updating patient information");
         patientService.updatePatientInformation(patient);
+        log.info("displaying patient liss");
         model.addAttribute("patients", patientService.findAll());
         model.addAttribute("patient", Patient.builder().build());
         return "list";
