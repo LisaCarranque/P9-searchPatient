@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class PatientControllerTest {
 
+
     @InjectMocks
     PatientController patientController;
 
@@ -29,30 +30,30 @@ public class PatientControllerTest {
         assertNotNull(patientController);
     }
 
-
     @Test
     public void updatePatientInformationTest() {
-        patientController.updatePatientInformation("1");
+        patientController.updatePatientInformation(model, 1);
         verify(patientService).getPatientById(1);
     }
 
     @Test
     public void addPatientInformationTest() {
         Patient patient = Patient.builder().id(1).build();
-        patientController.addPatientInformation(patient);
-        verify(patientService).addPatientInformation(patient);
+        patientController.addPatientInformation(model, patient);
+        verify(patientService).findAll();
     }
 
     @Test
     public void validatePatientInformationTest() {
         Patient patient = Patient.builder().id(1).build();
-        patientController.validateUpdate(patient);
+        patientController.validateUpdate(model, patient);
         verify(patientService).updatePatientInformation(patient);
+        verify(patientService).findAll();
     }
 
     @Test
     public void homeTest() {
-        patientController.home();
+        patientController.home(model);
         verify(patientService).findAll();
     }
 }

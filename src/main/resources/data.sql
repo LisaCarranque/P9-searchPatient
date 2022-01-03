@@ -1,21 +1,12 @@
 
 
-create database IF NOT EXISTS test;
-use test;
-create table if not exists patient(
- id int PRIMARY KEY AUTO_INCREMENT,
- address varchar(255),
- birthdate timestamp,
- genre varchar(255),
- phone varchar(255),
- firstname varchar(255),
- lastname varchar(255));
-insert ignore into patient (id, address, birthdate, genre, phone, firstname, lastname) values
-  (1000, '1509 Culver St', '1980-10-02', 'F', '841-874-6512', 'leonie', 'ki');
-
 use P9;
---insert ignore into patient (id, address, birthdate, family, genre, given, phone, firstname, lastname) values
---  (1, '1509 Culver St', '02/10/1980', 'test', 'F', ' ', '841-874-6512', 'jon', 'smith');
-
---CREATE USER 'test'@'172.23.0.1' IDENTIFIED BY 'Test@2021';
---GRANT ALL PRIVILEGES ON test . * TO 'test'@'172.23.0.1';
+insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
+  ('cd23fd55-d832-4890-b5b6-0a7a63987c14', '1509 Culver St', '1980-10-02', 'F', '841-874-6512', 'leonie', 'ki');
+commit;
+insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
+  ('33e814e4-0f8f-4fb3-a65d-6dd4908d16bf', '1519 Culver St', '1980-10-02', 'M', '841-874-6512', 'leon', 'ki');
+commit;
+insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
+  ('cd23fd55-d832-4890-b5b6-0a7a63987c12', '1519 Culver St', '1981-10-02', 'M', '841-874-6512', 'john', 'ki');
+commit;

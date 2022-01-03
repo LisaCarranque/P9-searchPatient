@@ -3,7 +3,6 @@ package searchPatient.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Builder
@@ -16,7 +15,7 @@ import java.util.UUID;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @Column(name = "firstname")
     String firstname;
@@ -29,7 +28,7 @@ public class Patient {
     @Column(name = "phone")
     String phone;
     @Column(name = "birthdate")
-    LocalDate birthdate;
+    String birthdate;
     @Column(name = "uuid")
     UUID uuid;
 

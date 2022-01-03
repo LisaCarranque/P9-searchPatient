@@ -34,6 +34,7 @@ public class PatientService implements IPatientService {
 
     @Override
     public Patient addPatientInformation(Patient patient) {
+        log.info("saving patient");
         return patientRepository.save(patient);
     }
 
