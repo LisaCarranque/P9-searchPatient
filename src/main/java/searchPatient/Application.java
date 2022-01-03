@@ -1,6 +1,6 @@
 package searchPatient;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import searchPatient.configuration.Generated;
 
-@Log4j2
+@Slf4j
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"searchPatient"})
