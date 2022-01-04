@@ -1,5 +1,4 @@
 
-
 use P9;
 insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
   ('cd23fd55-d832-4890-b5b6-0a7a63987c14', '1509 Culver St', '1980-10-02', 'F', '841-874-6512', 'leonie', 'ki');
@@ -9,4 +8,15 @@ insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, l
 commit;
 insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
   ('cd23fd55-d832-4890-b5b6-0a7a63987c12', '1519 Culver St', '1981-10-02', 'M', '841-874-6512', 'john', 'ki');
+commit;
+
+
+insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
+  ('', '1509 Culver St', '2000-10-02', 'F', '841-874-6512', 'lou', 'smith');
+commit;
+insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
+  ('', '1519 Culver St', '2000-10-02', 'M', '841-874-6512', 'lila', 'smith');
+commit;
+insert ignore into patient (uuid, address, birthdate, genre, phone, firstname, lastname) values
+  ('', '1519 Culver St', '2000-10-02', 'M', '841-874-6512', 'lili', 'smith');
 commit;

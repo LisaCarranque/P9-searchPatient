@@ -3,6 +3,7 @@ package searchPatient.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import searchPatient.model.Patient;
 import searchPatient.repository.PatientRepository;
 
@@ -19,19 +20,20 @@ public class PatientService implements IPatientService {
 
     @Override
     public List<Patient> findAll() {
-        log.info("find all patient");
         return patientRepository.findAll();
+    }
+
+    public Patient getPatientInformation(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname) {
+        return patientRepository.findByfirstnameAndLastname(firstname, lastname);
     }
 
     @Override
     public Patient getPatientById(Integer id) {
-        log.info("getting patient by id");
         return patientRepository.getOne(id);
     }
 
     @Override
     public Patient addPatientInformation(Patient patient) {
-        log.info("saving patient");
         return patientRepository.save(patient);
     }
 
@@ -42,7 +44,6 @@ public class PatientService implements IPatientService {
 
     @Override
     public Patient updatePatientInformation(Patient patient) {
-        log.info("updating patient");
         return patientRepository.save(patient);
     }
 
