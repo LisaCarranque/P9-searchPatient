@@ -1,8 +1,10 @@
 package searchPatient.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Builder
@@ -12,10 +14,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "patient")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     @Column(name = "firstname")
     String firstname;
@@ -28,7 +31,7 @@ public class Patient {
     @Column(name = "phone")
     String phone;
     @Column(name = "birthdate")
-    String birthdate;
+    LocalDate birthdate;
     @Column(name = "uuid")
     UUID uuid;
 
