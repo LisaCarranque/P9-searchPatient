@@ -26,6 +26,12 @@ public class PatientServiceTest {
     }
 
     @Test
+    public void getPatientInformationTest() {
+        searchPatientService.getPatientInformation("firstname", "name");
+        verify(patientRepository).findByfirstnameAndLastname("firstname", "name");
+    }
+
+    @Test
     public void addPatientInformationTest() {
         Patient patient = Patient.builder().id(1).build();
         searchPatientService.addPatientInformation(patient);
