@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import searchPatient.exception.PatientNotFoundException;
 import searchPatient.model.Patient;
 import searchPatient.service.IPatientService;
 
@@ -30,7 +31,8 @@ public class PatientController {
     @RequestMapping("/patient/list")
     public List<Patient> home() {
         log.info("searchPatient controller : listing all patients");
-        return patientService.findAll();
+        List<Patient> patients = patientService.findAll();
+        return patients;
     }
 
     /**
@@ -78,7 +80,9 @@ public class PatientController {
     @RequestMapping("/patient/get/{id}")
     public Patient getPatientById(@PathVariable String id) {
         log.info("searchPatient controller : getting patient with id: " + id);
-        return patientService.getPatientById(Integer.valueOf(id));
+        Patient patient = patientService.getPatientById(Integer.valueOf(id));
+        if (patient == null) throw new PatientNotFoundException("No patient found in database for id: " + id);
+        return patient;
     }
 
     /**
@@ -88,7 +92,8 @@ public class PatientController {
     @RequestMapping("/patient/getAll")
     public List<Patient> getAll() {
         log.info("searchPatient controller : finding all patients");
-        return patientService.findAll();
+        List<Patient> patients = patientService.findAll();
+        return patients;
     }
 
     /**
@@ -98,7 +103,8 @@ public class PatientController {
     @RequestMapping("/patient/getAllDistinctLastnames")
     public List<String> getAllDistinct() {
         log.info("searchPatient controller : finding all distinct lastname of patients");
-        return patientService.findAllDistinctLastnames();
+        List<String> lastnames = patientService.findAllDistinctLastnames();
+        return lastnames;
     }
 
     /**
@@ -109,7 +115,9 @@ public class PatientController {
     @RequestMapping("/patient/getByLastname/{lastname}")
     public List<Patient> getPatientByLastname(@PathVariable String lastname) {
         log.info("searchPatient controller : getting patient with lastname: " + lastname);
-        return patientService.getPatientByLastname(lastname);
+        List<Patient> patients = patientService.getPatientByLastname(lastname);
+        if (patients.isEmpty()) throw new PatientNotFoundException("No patient found in database for lastname: " + lastname);
+        return patients;
     }
 
 

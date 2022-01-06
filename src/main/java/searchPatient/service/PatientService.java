@@ -3,14 +3,12 @@ package searchPatient.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import searchPatient.model.Patient;
 import searchPatient.repository.PatientRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,7 +38,7 @@ public class PatientService implements IPatientService {
     @Override
     public Patient getPatientById(Integer id) {
         log.info("searchPatient service : get patient by id: " + id);
-        return patientRepository.getOne(id);
+        return patientRepository.findById(id).orElse(null);
     }
 
     /**
@@ -98,7 +96,7 @@ public class PatientService implements IPatientService {
         patients.stream()
                 .filter(p -> !lastnames.contains(p.getLastname()))
                 .forEach(p -> lastnames.add(p.getLastname()));
-        return lastnames;
+        return lastnames.isEmpty() ? null : lastnames;
     }
 
 }
