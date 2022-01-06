@@ -74,7 +74,7 @@ public class PatientServiceTest {
     @Test
     public void getPatientByIdTest() {
         searchPatientService.getPatientById(1);
-        verify(patientRepository).getOne(1);
+        verify(patientRepository).findById(1);
     }
 
     @Test
