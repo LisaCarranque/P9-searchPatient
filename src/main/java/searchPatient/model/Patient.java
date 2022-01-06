@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -28,10 +29,12 @@ public class Patient {
     @Column(name = "firstname")
     @NotEmpty
     @NonNull
+    @Size(min=1, max=40)
     String firstname;
     @Column(name = "lastname")
     @NotEmpty
     @NonNull
+    @Size(min=1, max=40)
     String lastname;
     @Column(name = "gender")
     @NonNull
@@ -39,10 +42,12 @@ public class Patient {
     @Column(name = "address")
     @NotEmpty
     @NonNull
+    @Size(min=1, max=40)
     String address;
     @Column(name = "phone")
     @NotEmpty
     @NonNull
+    @Size(min=1, max=40)
     String phone;
     @Column(name = "birthdate")
     @NonNull

@@ -6,15 +6,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
+import searchPatient.exception.PatientNotFoundException;
 import searchPatient.model.Gender;
 import searchPatient.model.Patient;
 import searchPatient.service.PatientService;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * This class is responsible for testing PatientController
@@ -75,13 +78,29 @@ public class PatientControllerTest {
 
     @Test
     public void getPatientByLastnameTest() {
+        when(patientService.getPatientByLastname("lastname")).thenReturn(Collections.singletonList(Patient
+                .builder().firstname("firstname").lastname("lastname").phone("00000000").gender(Gender.F)
+                .birthdate(LocalDate.now()).address("1st street").uuid(UUID.randomUUID()).id(1).build()));
         patientController.getPatientByLastname("lastname");
         verify(patientService).getPatientByLastname("lastname");
     }
 
     @Test
     public void getPatientByIdTest() {
+        when(patientService.getPatientById(1)).thenReturn(Patient
+                .builder().firstname("firstname").lastname("lastname").phone("00000000").gender(Gender.F)
+                .birthdate(LocalDate.now()).address("1st street").uuid(UUID.randomUUID()).id(1).build());
         patientController.getPatientById("1");
         verify(patientService).getPatientById(1);
+    }
+
+    @Test
+    public void getPatientByLastnameThrowsExceptionTest() {
+        assertThrows(PatientNotFoundException.class , () -> patientController.getPatientByLastname("lastname"));
+    }
+
+    @Test
+    public void getPatientByIdThrowsExceptionTest() {
+        assertThrows(PatientNotFoundException.class , () -> patientController.getPatientById("1"));
     }
 }
