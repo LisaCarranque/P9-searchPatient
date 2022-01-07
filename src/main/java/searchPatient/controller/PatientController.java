@@ -1,11 +1,9 @@
 package searchPatient.controller;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import searchPatient.exception.PatientNotFoundException;
 import searchPatient.model.Patient;
 import searchPatient.service.IPatientService;
@@ -19,6 +17,7 @@ import java.util.UUID;
  */
 @Slf4j
 @RestController
+@Api("Controller for searchPatient microservice")
 public class PatientController {
 
     @Autowired
@@ -28,7 +27,7 @@ public class PatientController {
      * This method is responsible for getting all patients
      * @return the list of all patients
      */
-    @RequestMapping("/patient/list")
+    @GetMapping("/patient/list")
     public List<Patient> home() {
         log.info("searchPatient controller : listing all patients");
         List<Patient> patients = patientService.findAll();
@@ -40,7 +39,7 @@ public class PatientController {
      * @param patient the patient to add
      * @return the added patient
      */
-    @RequestMapping("/patient/add")
+    @PostMapping("/patient/add")
     public Patient addPatientInformation(@RequestBody @Valid Patient patient) {
         if (patient.getUuid() == null) {
             patient.setUuid(UUID.randomUUID());
@@ -54,7 +53,7 @@ public class PatientController {
      * @param id the id of the targeted inforamtion
      * @return the patient to update
      */
-    @RequestMapping("/patient/update/{id}")
+    @GetMapping("/patient/update/{id}")
     public Patient updatePatientInformation(@PathVariable String id) {
         log.info("searchPatient controller : finding patient with id: " + id);
         return patientService.getPatientById(Integer.valueOf(id));
@@ -65,7 +64,7 @@ public class PatientController {
      * @param patient the patient to update
      * @return the updated patient
      */
-    @RequestMapping("/patient/update")
+    @PostMapping("/patient/update")
     public Patient validateUpdate(@RequestBody @Valid Patient patient) {
         log.info("searchPatient controller : updating patient with uuid: " + patient.getUuid()
                 + "and id:" + patient.getId());
@@ -77,7 +76,7 @@ public class PatientController {
      * @param id the id of the targeted patient
      * @return the targeted patient
      */
-    @RequestMapping("/patient/get/{id}")
+    @GetMapping("/patient/get/{id}")
     public Patient getPatientById(@PathVariable String id) {
         log.info("searchPatient controller : getting patient with id: " + id);
         Patient patient = patientService.getPatientById(Integer.valueOf(id));
@@ -89,7 +88,7 @@ public class PatientController {
      * This method is responsible for get all patients
      * @return the list of all patients
      */
-    @RequestMapping("/patient/getAll")
+    @GetMapping("/patient/getAll")
     public List<Patient> getAll() {
         log.info("searchPatient controller : finding all patients");
         List<Patient> patients = patientService.findAll();
@@ -100,7 +99,7 @@ public class PatientController {
      * This method is responsible for get all distinct lastname of patients
      * @return the list of all distinct lastname of patients
      */
-    @RequestMapping("/patient/getAllDistinctLastnames")
+    @GetMapping("/patient/getAllDistinctLastnames")
     public List<String> getAllDistinct() {
         log.info("searchPatient controller : finding all distinct lastname of patients");
         List<String> lastnames = patientService.findAllDistinctLastnames();
@@ -112,7 +111,7 @@ public class PatientController {
      * @param lastname the lastname of the targeted patient
      * @return the targeted patient
      */
-    @RequestMapping("/patient/getByLastname/{lastname}")
+    @GetMapping("/patient/getByLastname/{lastname}")
     public List<Patient> getPatientByLastname(@PathVariable String lastname) {
         log.info("searchPatient controller : getting patient with lastname: " + lastname);
         List<Patient> patients = patientService.getPatientByLastname(lastname);
