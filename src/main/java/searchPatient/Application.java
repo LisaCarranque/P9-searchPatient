@@ -7,11 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import searchPatient.configuration.Generated;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * this class is the main class for searchPatient microservice
  */
 @Slf4j
+@EnableSwagger2
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"searchPatient"})
