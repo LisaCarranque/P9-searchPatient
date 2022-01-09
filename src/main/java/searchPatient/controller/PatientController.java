@@ -3,13 +3,17 @@ package searchPatient.controller;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import searchPatient.exception.PatientNotFoundException;
 import searchPatient.model.Patient;
 import searchPatient.service.IPatientService;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -40,12 +44,21 @@ public class PatientController {
      * @return the added patient
      */
     @PostMapping("/patient/add")
-    public Patient addPatientInformation(@RequestBody @Valid Patient patient) {
+    public ResponseEntity<Patient> addPatientInformation(@RequestBody @Valid Patient patient) {
         if (patient.getUuid() == null) {
             patient.setUuid(UUID.randomUUID());
         }
         log.info("searchPatient controller : adding new patient with uuid: " + patient.getUuid());
-        return patientService.addPatientInformation(patient);
+        Patient patientAdded =  patientService.addPatientInformation(patient);
+        if (Objects.isNull(patientAdded)) {
+            return ResponseEntity.noContent().build();
+        }
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(patientAdded.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     /**
