@@ -12,16 +12,7 @@ ou directement au path :
 test/java/report/index.html
 
 Tests des microservices :
-Ouvrir Postman et tester les endpoints suivants : 
-
-Méthodes Get :  
-Récupérer un patient par son nom de famille :  
-172.23.0.4:8081/patient/getByLastname/ki  
-Récupérer un patient par son id :  
-172.23.0.4:8081/patient/get/1  
-Récupérer la liste des patients :  
-172.23.0.4:8081/patient/list  
-172.23.0.4:8081/patient/getAll  
+Ouvrir Postman et tester les endpoints suivants :
 
 Methodes Post :   
 Ajouter les patients :  
@@ -74,3 +65,12 @@ Json : {   "id":"4",
 "birthdate":"2002-06-28"
 }   
 
+
+Méthodes Get :  
+Récupérer un patient par son nom de famille :  
+172.23.0.4:8081/patient/getByLastname/testBorderline  
+Récupérer un patient par son id :  
+172.23.0.4:8081/patient/get/2  
+Récupérer la liste des patients :  
+172.23.0.4:8081/patient/list  
+172.23.0.4:8081/patient/getAll 
